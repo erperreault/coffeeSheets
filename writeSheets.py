@@ -49,11 +49,6 @@ def main():
     # Copy of production sheet (SP account)
     # coffeeSheetsTesterID = '1XoQ9uyz_fUBmvowLoOO2dvoniOeZiq6x0AEH9v88Xgg'
     
-    def getValues(sheetID, range):
-        # Check get values of range in tester sheet
-        values = service.spreadsheets().values().get(spreadsheetId=sheetID, range=range).execute()
-        return values
-
     def getAllTabs(sheetID):
         # Get tab IDs
         # args: main spreadsheet ID (str)
