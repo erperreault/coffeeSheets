@@ -8,6 +8,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import datetime
 from pprint import pprint
+from writeSheets import *
+
+writeSheets.getAllTabs()
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
@@ -49,4 +52,3 @@ def main():
     # Copy of production sheet (SP account)
     # coffeeSheetsTesterID = '1XoQ9uyz_fUBmvowLoOO2dvoniOeZiq6x0AEH9v88Xgg'
 
-    

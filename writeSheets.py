@@ -12,11 +12,16 @@ from pprint import pprint
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
-TODAY = datetime.date.today().strftime('%B %d')
-TOMORROW = datetime.date.today() + datetime.timedelta(days=1)
-TOMORROW = TOMORROW.strftime('%B %d')
-if TOMORROW[-2] == '0':
-    TOMORROW = TOMORROW[:-2] + TOMORROW[-1]
+def stripBufferZero(str):
+    if str[-2] == '0':
+        return (str[:-2] + str[-1])
+    else:
+        return str
+
+TODAY = stripBufferZero( datetime.date.today().strftime('%B %d') )
+
+TOMORROW = stripBufferZero( (datetime.date.today() + datetime.timedelta(days=1))
+    .strftime('%B %d') )
 
 def main(): 
     """Shows basic usage of the Sheets API.
@@ -48,7 +53,7 @@ def main():
 
     # Copy of production sheet (SP account)
     # coffeeSheetsTesterID = '1XoQ9uyz_fUBmvowLoOO2dvoniOeZiq6x0AEH9v88Xgg'
-    
+
     def getAllTabs(sheetID):
         # Get tab IDs
         # args: main spreadsheet ID (str)
@@ -111,7 +116,7 @@ def main():
         updatePR(coffeeSheetsTesterID, 1)
         newFromTemplate(coffeeSheetsTesterID, TOMORROW)
     
-    # testSuite()
+    testSuite()
 
 #TODO Get needed amounts from readShopify.
 
