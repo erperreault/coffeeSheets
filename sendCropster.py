@@ -10,45 +10,20 @@ import datetime
 from pprint import pprint
 from writeSheets import *
 
-writeSheets.getAllTabs()
+def getWeights(index):
+    # Reference spreadsheet for actual yield weights.
+    # args: index of desired spreadsheet (int)
+    # returns: {'pr':'weight', 'pr':'weight', ...}
+    prRange = "'" + getAllTabs(coffeeSheetsTesterCopy)[index] + "'!B2:B"
+    weightRange = "'" + getAllTabs(coffeeSheetsTesterCopy)[index] + "'!D2:D"
 
-# If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
+    weights = [weight[0] for weight in service.spreadsheets().values().get(
+        spreadsheetId=coffeeSheetsTesterID, range=weightRange).execute()['values']]
+    prs = [pr[0] for pr in service.spreadsheets().values().get(
+        spreadsheetId=coffeeSheetsTesterID, range=prRange).execute()['values']]
 
-TODAY = datetime.date.today().strftime('%B %d')
-TOMORROW = datetime.date.today() + datetime.timedelta(days=1)
-TOMORROW = TOMORROW.strftime('%B %d')
-if TOMORROW[-2] == '0':
-    TOMORROW = TOMORROW[:-2] + TOMORROW[-1]
+    return dict(zip(prs, weights))
 
-def main(): 
-    """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
-    """
-    creds = None
-    # The file token.pickle stores the user's access and refresh tokens, and is
-    # created automatically when the authorization flow completes for the first
-    # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        # Save the credentials for the next run
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-
-    service = build('sheets', 'v4', credentials=creds)
-
-    # Tester
-    coffeeSheetsTesterID = '1Bx9OF2hMm_M1AjKCdJwq8DCgWxeCu7hk6VURbArNEjA'
-
-    # Copy of production sheet (SP account)
-    # coffeeSheetsTesterID = '1XoQ9uyz_fUBmvowLoOO2dvoniOeZiq6x0AEH9v88Xgg'
-
+#TODO Send roasted weights to Cropster at end of day.
+    #TODO Check Cropster to see which batches need their yield weights.]
+    #TODO Update Croster batches with appropriate yield weights.
