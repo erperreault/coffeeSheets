@@ -59,8 +59,38 @@ def continueFromLastPR(ID, index):
             }
         ).execute()
 
+def getLogCoffees(ID):
+    result = {}
+    step = 16
+    for coffee in readCells(ID, f'{getTabNames(ID)[1]}!F16:F44'):
+        result[coffee] = f'{getTabNames(ID)[1]}!F{step}:F{step}'
+        step += 1
+    return result
+
 def populateBatches(ID, index, numbers):
-    print(numbers)
+    logCoffees = getLogCoffees(ID)
+    step = 2
+    target = f'{getTabNames(ID)[index]}!C'
+    for coffee in numbers.keys():
+        if coffee in logCoffees.keys():
+            print(coffee)
+            for i in range(int(numbers[coffee])):
+                sheet.batchUpdate(
+                    spreadsheetId=ID,
+                    body={
+                        'requests':[{
+                            'copyPaste': {
+                                'source': dict.fromkeys({ logCoffees[coffee] }),
+                                'destination': dict.fromkeys({ f'{target}{step}:C{step}' }),
+                                'pasteType': 'PASTE_NORMAL',
+                                'pasteOrientation': 'NORMAL'
+                            }
+                        }]
+                    }
+                ).execute()
+                step += 1
+        else:
+            print(f'Error: {coffee} not in Roast Logs template.')
 
 def makeRoastTabs(ID, numbers):
     newFromTemplate(ID, TODAY)
