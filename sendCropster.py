@@ -31,9 +31,3 @@ def getWeights(index):
         spreadsheetId=coffeeSheetsTesterID, range=prRange).execute()['values']]
 
     return dict(zip(prs, weights))
-
-
-
-#TODO Send roasted weights to Cropster at end of day.
-    #TODO Check Cropster to see which batches need their yield weights.
-    #TODO Update Croster batches with appropriate yield weights.
