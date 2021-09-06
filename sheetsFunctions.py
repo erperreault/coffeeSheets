@@ -6,6 +6,7 @@ from pprint import pprint
 from setup import sheet
 
 def stripBufferZero(str):
+    """Clean up date format from datetime to match Sheets format."""
     if str[-2] == '0':
         return (str[:-2] + str[-1])
     else:
@@ -36,6 +37,7 @@ def getLastPR(ID, index):
     return result
 
 def newFromTemplate(ID, name):
+    """Make a new blank tab to fill."""
     sheet.batchUpdate(
         spreadsheetId=ID, 
         body={
