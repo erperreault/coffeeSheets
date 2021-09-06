@@ -95,6 +95,9 @@ def populateBatches(ID, index, numbers):
             print(f'Error: {coffee} not in Roast Logs template.')
 
 def makeRoastTabs(ID, numbers):
+    """Called in main.py
+    Create new tabs for today and tomorrow, populate today with roast math.
+    """
     newFromTemplate(ID, TODAY)
     continueFromLastPR(ID, 1)
     newFromTemplate(ID, TOMORROW)
