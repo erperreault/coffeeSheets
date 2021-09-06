@@ -5,6 +5,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 def setup():
+    """Borrowed from Google Sheets API Tutorial.
+    Generate from credentials.json if pickle not already present.
+    """
 
     SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 

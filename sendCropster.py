@@ -1,5 +1,3 @@
-#!Python3
-
 from __future__ import print_function
 import pickle, os.path, datetime, base64, requests
 from googleapiclient.discovery import build

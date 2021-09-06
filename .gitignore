@@ -2,4 +2,5 @@ credentials.json
 token.pickle
 cropsterCredentials.json
 b64.py
+.vscode
 __pycache__
