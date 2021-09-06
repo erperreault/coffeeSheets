@@ -16,6 +16,11 @@ headers = {'Authorization':auth, 'Content-Type':contentType, 'User-Agent':userAg
 r = requests.get('https://c-sar.cropster.com/api/v2/users/AdXV', params=headers)
 print(r.url)
 
+"""
+This function conforms to Cropster API, but unfortunately was never tested
+because API support was never enabled for our account.
+"""
+
 def getWeights(index):
     # Reference spreadsheet for actual yield weights.
     # args: index of desired spreadsheet (int)
